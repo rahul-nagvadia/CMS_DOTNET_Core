@@ -1,0 +1,84 @@
+﻿@model CollegeMgmtSystem.Models.Teacher
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Teacher</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="TeacherName" class="control-label"></label>
+                <input asp-for="TeacherName" class="form-control" />
+                <span asp-validation-for="TeacherName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartmentId" class="control-label"></label>
+                <select asp-for="DepartmentId" class="form-control" asp-items="ViewBag.DepartmentId"></select>
+                <span asp-validation-for="DepartmentId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CourseId" class="control-label"></label>
+                <select asp-for="CourseId" class="form-control" asp-items="ViewBag.CourseId"></select>
+                <span asp-validation-for="CourseId" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            // Get a reference to the department and course dropdowns
+            var departmentDropdown = $("#DepartmentId");
+            var courseDropdown = $("#CourseId");
+
+            // Attach an event handler for the department dropdown change event
+            departmentDropdown.change(function () {
+                var selectedDepartmentId = departmentDropdown.val();
+
+                // Make an AJAX request to fetch courses based on the selected department
+                $.get("/Teachers/GetCoursesByDepartment", { departmentId: selectedDepartmentId }, function (data) {
+                    // Clear the course dropdown
+                    courseDropdown.empty();
+
+                    // Add a default option for the course dropdown
+                    courseDropdown.append($('<option>', {
+                        value: "",
+                        text: "-- Select Course --"
+                    }));
+
+                    // Populate the course dropdown with the retrieved courses
+                    $.each(data, function (index, item) {
+                        courseDropdown.append($('<option>', {
+                            value: item.id,
+                            text: item.courseName
+                        }));
+                    });
+                });
+            });
+
+            // Trigger the department dropdown change event to populate courses initially (if needed)
+            departmentDropdown.change();
+        });
+    </script>
+}
+

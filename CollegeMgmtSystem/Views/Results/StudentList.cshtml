@@ -1,0 +1,25 @@
+﻿@model List<Student>
+
+<h2>Students in Department @ViewBag.DepartmentId, Semester @ViewBag.Semester</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Student ID</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.Id</td>
+                <td>@student.StuName</td>
+                <td>
+                    <a href="@Url.Action("ShowCourses", "Results", new { studentId = student.Id })" class="btn btn-primary">Add Marks</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,36 @@
+﻿@model List<CollegeMgmtSystem.Models.Result>
+
+<h2>Results for Student ID: @ViewBag.StudentId</h2>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+             
+                <th>Course Name</th>
+                <th>Sessional 1</th>
+                <th>Sessional 2</th>
+                <th>Sessional 3</th>
+                <th>External </th>
+   
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var result in Model)
+            {
+                <tr>
+                    <td>@result.Course?.CourseName</td>
+                    <td>@result.Sessional1</td>
+                    <td>@result.Sessional2</td>
+                    <td>@result.Sessional3</td>
+                    <td>@result.External</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No results found for this student.</p>
+}

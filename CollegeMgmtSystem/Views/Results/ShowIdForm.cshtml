@@ -1,0 +1,11 @@
+﻿@model int?
+
+<h2>Enter Student ID</h2>
+
+<form asp-controller="Results" asp-action="ProcessIdForm" method="post">
+    <div class="form-group">
+        <label for="studentId">Student ID:</label>
+        <input type="text" class="form-control" id="studentId" name="studentId" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

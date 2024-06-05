@@ -1,0 +1,15 @@
+﻿@model CollegeMgmtSystem.Models.ResultFormModel
+
+<h2>Add Results</h2>
+
+<form asp-controller="Results" asp-action="ProcessForm" method="post">
+    <div class="form-group">
+        <label for="DepartmentId">Department:</label>
+        @Html.DropDownListFor(model => model.DepartmentId, new SelectList(ViewBag.Departments, "Value", "Text"), new { @class = "form-control", required = "required" })
+    </div>
+    <div class="form-group">
+        <label for="Semester">Semester:</label>
+        @Html.DropDownListFor(model => model.Semester, new SelectList(Enumerable.Range(1, 8)), new { @class = "form-control", required = "required" })
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
